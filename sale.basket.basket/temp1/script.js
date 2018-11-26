@@ -973,69 +973,11 @@ BX.ready(function() {
 
 function gift_ajax(){
      BX.ajax({
-         url: '/local/templates/monopoly/components/bitrix/sale.basket.basket/monopoly2/gifts.php',
+         url: '/local/templates/mytemplate1/components/bitrix/sale.basket.basket/temp1/gifts.php',
          method: 'GET',
-         //data: '',
-         //dataType: 'json',
          onsuccess: function(result)
          {
             $('.gift_container').html(result)
-            setTimeout(function(){
-                $('.add_to_basket').on('click', function(ev){
-                    ev.preventDefault()
-                    var that = this
-                    // console.log(resp.basketID)
-                    // console.log('/local/templates/monopoly/components/bitrix/sale.basket.basket/monopoly2/add_gift_ajax.php?' + $(this).attr('href'))
-                    $.ajax({
-                        url: '/local/templates/monopoly/components/bitrix/sale.basket.basket/monopoly2/add_gift_ajax.php?' + $(this).attr('href'),
-                        type: 'get',
-                        data: '',
-                        dataType: 'json',
-                        success: function(resp){
-                            // console.log('1')
-                            // console.log(resp)
-                            // $("#basket_items").prepend('<tr id="'+resp.basketID+'"></tr>')
-                             postData = {
-                            'basketItemId': resp.basketID,
-                            'sessid': BX.bitrix_sessid(),
-                            'site_id': BX.message('SITE_ID'),
-                            // 'props': property_values,
-                            'action_var': 'action',
-                            'action': 'select_item',
-                            'select_props': BX('column_headers').value,
-                            'offers_props': BX('offers_props').value,
-                            'quantity_float': BX('quantity_float').value,
-                            'count_discount_4_all_quantity': BX('count_discount_4_all_quantity').value,
-                            'price_vat_show_value': BX('price_vat_show_value').value,
-                            'hide_coupon': BX('hide_coupon').value,
-                            'use_prepayment': BX('use_prepayment').value
-                            }                            
-                            addRowGift(that, resp)
-                            BX.ajax({
-                                url: '/bitrix/components/bitrix/sale.basket.basket/ajax.php',
-                                method: 'POST',
-                                data: postData,
-                                dataType: 'json',
-                                onsuccess: function(result)
-                                {
-                                    // console.log(1)
-                                    // console.log(result)
-                                    // result.DELETE_ORIGINAL = 'N'
-                                    // updateBasketTable(resp.basketID, result)
-                                },
-                                onerror: function(err){
-                                    console.log(2)
-                                    console.log(err)
-                                }
-                            });
-                        },
-                        error: function(resp){
-                            console.log('2')
-                            console.log(resp)
-                        }           
-                    })
-                })
-            }, 100)
          }
      });
 }
